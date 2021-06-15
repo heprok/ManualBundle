@@ -1,0 +1,40 @@
+{
+    "name": "tlc/manual-bundle",
+    "version": "0.1.0",
+    "type": "symfony-bundle",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../ReportBundle"
+        }
+    ],
+    "description": "TechnoLesCom manual bundle",
+    "license": "proprietary",
+    "require": {
+        "php": ">=7.4",
+        "symfony/orm-pack": "^2.1",
+        "tlc/report-bundle": "^0.1.0"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Tlc\\ManualBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tlc\\ManualBundle\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "./vendor/bin/simple-phpunit"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "5.3.*"
+        }
+    }
+}
