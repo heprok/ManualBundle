@@ -39,18 +39,13 @@ class StandardLength
     protected int $standard;
 
 
-    #[ORM\Column(type: "smallint", options: ["comment" => "Минимальная граница диапзаона не включая, мм"])]
-    #[Groups(["standard_length:read", "standard_length:write"])]
-    protected int $minimum;
+    #[ORM\Column(type: "int2range", options: ["comment" => "Диапазон фактических длин, мм"])]
+    protected array $range;
 
-
-    #[ORM\Column(type: "smallint", options: ["comment" => "Максимальная граница диапзаона не включая, мм"])]
-    #[Groups(["standard_length:read", "standard_length:write"])]
-    protected int $maximum;
-
-    public function __construct(int $standard)
+    public function __construct(int $standard, array $range)
     {
         $this->standard = $standard;
+        $this->range = $range;
     }
 
     public function getStandard(): ?int
@@ -65,26 +60,30 @@ class StandardLength
         return $this;
     }
 
+    #[Groups(["standard_length:read"])]
     public function getMinimum(): ?int
     {
-        return $this->minimum;
+        return min($this->range);
     }
 
+    #[Groups(["standard_length:write"])]
     public function setMinimum(int $minimum): self
     {
-        $this->minimum = $minimum;
+        $this->range[0] = $minimum;
 
         return $this;
     }
 
+    #[Groups(["standard_length:read"])]
     public function getMaximum(): ?int
     {
-        return $this->maximum;
+        return max($this->range);
     }
 
+    #[Groups(["standard_length:write"])]
     public function setMaximum(int $maximum): self
     {
-        $this->maximum = $maximum;
+        $this->range[1] = $maximum;
 
         return $this;
     }

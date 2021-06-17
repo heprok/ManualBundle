@@ -4,20 +4,9 @@ declare(strict_types=1);
 
 namespace Tlc\ManualBundle\Entity;
 
-use Tlc\ManualBundle\Repository\ErrorRepository;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-//#[ORM\Entity(repositoryClass: ErrorRepository::class)]
-// #[
-//     ApiResource(
-//         collectionOperations: ["get", "post"],
-//         itemOperations: ["get", "put"],
-//         normalizationContext: ["groups" => ["error:read"]],
-//         denormalizationContext: ["groups" => ["error:write"]]
-//     )
-// ]
 #[ORM\MappedSuperclass()]
 class Error
 {

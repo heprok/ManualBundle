@@ -17,18 +17,18 @@ services:
         autoconfigure: true 
 
     # Регистрируем контроллеры бандла и репозиторий как DI-сервисы
-    Tlc\ManualBundle\Repository\BreakSheduleRepository: ~
-    Tlc\ManualBundle\Repository\DowntimeCauseRepository: ~
-    Tlc\ManualBundle\Repository\DowntimeGroupRepository: ~
-    Tlc\ManualBundle\Repository\DowntimeLocationRepository: ~
-    Tlc\ManualBundle\Repository\DowntimePlaceRepository: ~
-    Tlc\ManualBundle\Repository\DowntimeRepository:
-        tags: ['doctrine.repository_service']
-    Tlc\ManualBundle\Repository\DutyRepository: ~
-    Tlc\ManualBundle\Repository\ErrorRepository: ~
-    Tlc\ManualBundle\Repository\EventRepository: ~
-    Tlc\ManualBundle\Repository\EventSourceRepository: ~
-    Tlc\ManualBundle\Repository\EventTypeRepository: ~
-    Tlc\ManualBundle\Repository\ShiftSheduleRepository: ~
-    Tlc\ManualBundle\Repository\SpeciesRepository: ~
-    Tlc\ManualBundle\Repository\StandardLengthRepository: ~
+    # Tlc\ManualBundle\Repository\BreakSheduleRepository: ~
+    # Tlc\ManualBundle\Repository\DowntimeCauseRepository: ~
+    # Tlc\ManualBundle\Repository\DowntimeGroupRepository: ~
+    # Tlc\ManualBundle\Repository\DowntimeLocationRepository: ~
+    # Tlc\ManualBundle\Repository\DowntimePlaceRepository: ~
+    # Tlc\ManualBundle\Repository\DowntimeRepository:
+    #     tags: ['doctrine.repository_service']
+    # Tlc\ManualBundle\Repository\DutyRepository: ~
+    # Tlc\ManualBundle\Repository\ErrorRepository: ~
+    # Tlc\ManualBundle\Repository\EventRepository: ~
+    # Tlc\ManualBundle\Repository\EventSourceRepository: ~
+    # Tlc\ManualBundle\Repository\EventTypeRepository: ~
+    # Tlc\ManualBundle\Repository\ShiftSheduleRepository: ~
+    # Tlc\ManualBundle\Repository\SpeciesRepository: ~
+    # Tlc\ManualBundle\Repository\StandardLengthRepository: ~

@@ -2,31 +2,16 @@
 
 namespace Tlc\ManualBundle\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use Tlc\ManualBundle\Filter\DateFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Tlc\ManualBundle\Repository\DowntimeRepository;
 use DateInterval;
-use DatePeriod;
-use DateTime;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use DoctrineExtensions\Types\DatePeriodRange;
 use phpDocumentor\Reflection\Location;
-use Salamek\DateRange;
 use Tlc\ReportBundle\Entity\BaseEntity;
 
-//#[ORM\Entity(repositoryClass: DowntimeRepository::class)]
-// #[
-//     ApiResource(
-//         collectionOperations: ["get"],
-//         itemOperations: ["get"],
-//         normalizationContext: ["groups" => ["downtime:read"]],
-//         denormalizationContext: ["groups" => ["downtime:write"]]
-//     )
-// ]
 #[ApiFilter(DateFilter::class, properties: ["period"])]
 #[ORM\MappedSuperclass()]
 class Downtime
