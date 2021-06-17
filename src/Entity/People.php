@@ -2,22 +2,11 @@
 
 namespace Tlc\ManualBundle\Entity;
 
-use Tlc\ManualBundle\Repository\PeopleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-//#[ORM\Entity(repositoryClass: PeopleRepository::class)]
-// #[
-//     ApiResource(
-//         collectionOperations: ["get", "post"],
-//         itemOperations: ["get", "put", "delete"],
-//         normalizationContext: ["groups" => ["people:read"]],
-//         denormalizationContext: ["groups" => ["people:write"]]
-//     )
-// ]
 #[ORM\MappedSuperclass()]
 class People
 {
