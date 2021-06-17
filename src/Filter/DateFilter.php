@@ -26,7 +26,7 @@ final class DateFilter extends AbstractContextAwareFilter
             return;
 
         $queryBuilder
-            ->andWhere(sprintf('o.%s BETWEEN :start AND :end', $property ))
+            ->andWhere(sprintf('lower(o.%s) BETWEEN :start AND :end', $property ))
             ->setParameter('start', $start->format(DATE_ATOM))
             ->setParameter('end', $end->format(DATE_ATOM));
 

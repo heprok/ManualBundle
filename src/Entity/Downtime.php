@@ -13,10 +13,11 @@ use DatePeriod;
 use DateTime;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
+use DoctrineExtensions\Types\DatePeriodRange;
 use phpDocumentor\Reflection\Location;
+use Salamek\DateRange;
 use Tlc\ReportBundle\Entity\BaseEntity;
 
-#[ORM\HasLifecycleCallbacks]
 //#[ORM\Entity(repositoryClass: DowntimeRepository::class)]
 // #[
 //     ApiResource(
@@ -26,40 +27,38 @@ use Tlc\ReportBundle\Entity\BaseEntity;
 //         denormalizationContext: ["groups" => ["downtime:write"]]
 //     )
 // ]
-#[ApiFilter(DateFilter::class, properties: ["startTimestampKey"])]
+#[ApiFilter(DateFilter::class, properties: ["period"])]
 #[ORM\MappedSuperclass()]
 class Downtime
 {
-    protected DatePeriod $period;
-    
     #[ORM\Id]
     #[ORM\Column(name: "period", type: "tstzrange", options: ["comment" => "Время начала простоя"])]
-    #[ApiProperty(identifier: true)]
     #[Groups(["downtime:read"])]
-    protected $startTimestampKey;
+    #[ApiProperty(identifier: true)]
+    protected DatePeriodRange $period;
+    
+    // protected string $periodKeyString;
 
-    public function getStartTimestampKey(): ?int
-    {
-        dd(2);
-        return strtotime($this->period->start->format(DATE_ATOM));
-    }
+    // public function getPeriodKeyString(): ?int
+    // {
+    //     return strtotime($this->period->start->format(DATE_ATOM));
+    // }
 
     #[Groups(["downtime:read"])]
     public function getStart(): ?string
     {
-        dd(2);
         return $this->period->start->format(BaseEntity::DATE_FORMAT_DB);
     }
 
-    public function getPeriod(): DatePeriod
+    public function getPeriod(): DatePeriodRange
     {
         return $this->period;
     }
 
     public function setPeriod(\DatePeriod $period): self
     {
-        $this->period = $period;
-        $this->startTimestampKey = BaseEntity::stringFromPeriod($period);
+        $this->period = DatePeriodRange::fromPeriod($period);
+        // $this->periodKeyString = BaseEntity::stringFromPeriod($period);
         return $this;
     }
 
@@ -115,10 +114,12 @@ class Downtime
         return $this->period->start->format(BaseEntity::TIME_FOR_FRONT);
     }
 
+
+
     #[Groups(["downtime:read"])]
     public function getEndTime(): ?string
     {
-        if (isset($this->period))
+        if (isset($this->period->end))
             return $this->period->end->format(BaseEntity::TIME_FOR_FRONT);
         else {
             return 'Продолжается';
@@ -146,28 +147,28 @@ class Downtime
         }
     }
 
-    #[ORM\PrePersist]
-    #[ORM\PreUpdate]
-    public function syncDrecTostartTimestampKey(LifecycleEventArgs $event)
-    {
-        dd(1);
-        $entityManager = $event->getEntityManager();
-        $connection = $entityManager->getConnection();
-        $platform = $connection->getDatabasePlatform();
-        dump($this->startTimestampKey);
-        $this->startTimestampKey = $this->drec->format($platform->getDateTimeFormatString());
-        dump($this->startTimestampKey);
-    }
+    // #[ORM\PrePersist]
+    // #[ORM\PreUpdate]
+    // public function syncDrecToperiodKeyString(LifecycleEventArgs $event)
+    // {
+    //     $entityManager = $event->getEntityManager();
+    //     $connection = $entityManager->getConnection();
+    //     $platform = $connection->getDatabasePlatform();
+    //     $this->periodKeyString = $this->period->start->format($platform->getDateTimeFormatString());
+    // }
 
-    #[ORM\PostLoad]
-    public function syncstartTimestampKeyToDrec(LifecycleEventArgs $event)
-    {
-        dd(1);
-        $entityManager = $event->getEntityManager();
-        $connection = $entityManager->getConnection();
-        $platform = $connection->getDatabasePlatform();
-        dump($this->startTimestampKey);
-        $this->drec = DateTime::createFromFormat($platform->getDateTimeTzFormatString(), $this->startTimestampKey) ?:
-            \DateTime::createFromFormat($platform->getDateTimeFormatString(), $this->startTimestampKey);
-    }
+    // #[ORM\PostLoad]
+    // public function syncperiodKeyStringToDrec(LifecycleEventArgs $event)
+    // {
+    //     // $entityManager = $event->getEntityManager();
+    //     // $connection = $entityManager->getConnection();
+    //     // $platform = $connection->getDatabasePlatform();
+    //     // dump($this->periodKeyString);
+    //     // if($this->periodKeyString instanceof DatePeriodRange) {
+            
+    //     $this->period = DatePeriodRange::fromString($this->periodKeyString);
+    //     // }
+    //     // DateTime::createFromFormat($platform->getDateTimeTzFormatString(), $this->periodKeyString) ?:
+    //         // \DateTime::createFromFormat($platform->getDateTimeFormatString(), $this->periodKeyString);
+    // }
 }

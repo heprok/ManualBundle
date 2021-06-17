@@ -2,8 +2,7 @@
 
 namespace Tlc\ManualBundle\Repository;
 
-use Tlc\ManualBundle\Entity\BaseEntity;
-use Tlc\ManualBundle\Entity\Downtime;
+use Tlc\ReportBundle\Entity\BaseEntity;
 use Tlc\ManualBundle\Entity\Shift;
 use DatePeriod;
 use DateTime;
@@ -17,11 +16,13 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Downtime[]    findAll()
  * @method Downtime[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class DowntimeRepository extends ServiceEntityRepository
+abstract class DowntimeRepository extends ServiceEntityRepository
 {
+    protected $nameClass;
+
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Downtime::class);
+        parent::__construct($registry, $this->nameClass);
     }
 
     /**
@@ -33,7 +34,7 @@ class DowntimeRepository extends ServiceEntityRepository
     private function getQueryFromPeriod(DatePeriod $period, array $sqlWhere = []): QueryBuilder
     {
         $qb = $this->createQueryBuilder('d')
-            ->where('d.drecTimestampKey BETWEEN :start AND :end')
+            ->where('lower(d.period) BETWEEN :start AND :end')
             ->setParameter('start', $period->getStartDate()->format(DATE_ATOM))
             ->setParameter('end', $period->getEndDate()->format(DATE_ATOM))
             ->orderBy('d.drecTimestampKey', 'ASC');
@@ -51,10 +52,10 @@ class DowntimeRepository extends ServiceEntityRepository
     /**
      * @return Downtime
      */
-    protected function getLastDowntime()
+    public function getLastDowntime()
     {
         return $this->createQueryBuilder('d')
-            ->orderBy('d.drecTimestampKey', 'DESC')
+            ->orderBy('d.period', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
@@ -63,12 +64,12 @@ class DowntimeRepository extends ServiceEntityRepository
     /**
      * @return Downtime[] Returns an array of Downtime objects
      */
-    protected function getDowntimesByShift(Shift $shift)
+    public function getDowntimesByShift(Shift $shift)
     {
-        return $this->findByPeriod($shift->getPeriod);
+        return $this->findByPeriod($shift->getPeriod());
     }
 
-    protected function getTotalDowntimeByPeriod(DatePeriod $period, array $sqlWhere = []): ?string
+    public function getTotalDowntimeByPeriod(DatePeriod $period, array $sqlWhere = []): ?string
     {
         $downtmies = $this->findByPeriod($period, $sqlWhere);
         if (!$downtmies)
@@ -86,7 +87,7 @@ class DowntimeRepository extends ServiceEntityRepository
     /**
      * @return Downtime[] Returns an array of Downtime objects
      */
-    protected function findByPeriod(DatePeriod $period, array $sqlWhere = [])
+    public function findByPeriod(DatePeriod $period, array $sqlWhere = [])
     {
         return $this->getQueryFromPeriod($period, $sqlWhere)
             ->getQuery()
