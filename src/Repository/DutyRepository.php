@@ -14,9 +14,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class DutyRepository extends ServiceEntityRepository
 {
+    protected $nameClass;
+
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Duty::class);
+        parent::__construct($registry, $this->nameClass);
     }
 
     // /**

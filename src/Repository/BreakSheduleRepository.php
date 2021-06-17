@@ -15,9 +15,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class BreakSheduleRepository extends ServiceEntityRepository
 {
+    protected $nameClass;
+
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, BreakShedule::class);
+        parent::__construct($registry, $this->nameClass);
     }
 
     public function isDowntimeBreak(Downtime $downtime): bool

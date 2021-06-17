@@ -14,9 +14,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class EventTypeRepository extends ServiceEntityRepository
 {
+    protected $nameClass;
+
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, EventType::class);
+        parent::__construct($registry, $this->nameClass);
     }
 
     // /**

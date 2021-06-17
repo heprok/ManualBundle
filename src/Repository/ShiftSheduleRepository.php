@@ -14,9 +14,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ShiftSheduleRepository extends ServiceEntityRepository
 {
+    protected $nameClass;
+
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ShiftShedule::class);
+        parent::__construct($registry, $this->nameClass);
     }
 
     // /**

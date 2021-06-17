@@ -14,9 +14,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class StandardLengthRepository extends ServiceEntityRepository
 {
+    protected $nameClass;
+
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, StandardLength::class);
+        parent::__construct($registry, $this->nameClass);
     }
 
     // /**

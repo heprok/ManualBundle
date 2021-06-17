@@ -14,9 +14,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class DowntimeGroupRepository extends ServiceEntityRepository
 {
+    protected $nameClass;
+
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, DowntimeGroup::class);
+        parent::__construct($registry, $this->nameClass);
     }
 
     // /**

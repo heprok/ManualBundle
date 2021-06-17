@@ -16,7 +16,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Downtime[]    findAll()
  * @method Downtime[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-abstract class DowntimeRepository extends ServiceEntityRepository
+class DowntimeRepository extends ServiceEntityRepository
 {
     protected $nameClass;
 

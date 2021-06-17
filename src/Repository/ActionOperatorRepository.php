@@ -16,11 +16,12 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ActionOperatorRepository extends ServiceEntityRepository
 {
+    protected $nameClass;
+
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ActionOperator::class);
+        parent::__construct($registry, $this->nameClass);
     }
-
 
     // /**
     //  * @return ActionOperator[] Returns an array of ActionOperator objects
