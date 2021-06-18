@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tlc\ManualBundle\Report\Event;
 
-use Tlc\ManualBundle\Report\AbstractPdf;
-use Tlc\ManualBundle\Report\AbstractReport;
+use Tlc\ReportBundle\Report\AbstractPdf;
+use Tlc\ReportBundle\Report\AbstractReport;
 
 final class EventPdfReport extends AbstractPdf
 {

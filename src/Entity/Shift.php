@@ -2,16 +2,11 @@
 
 namespace Tlc\ManualBundle\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiProperty;
 use Symfony\Component\Serializer\Annotation\Groups;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Tlc\ManualBundle\Filter\DateFilter;
 use ApiPlatform\Core\Annotation\ApiFilter;
-use DateInterval;
-use DatePeriod;
-use DateTime;
 use DoctrineExtensions\Types\DatePeriodRange;
 use Tlc\ReportBundle\Entity\BaseEntity;
 

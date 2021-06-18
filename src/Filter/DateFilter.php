@@ -21,12 +21,12 @@ final class DateFilter extends AbstractContextAwareFilter
         $dates = explode('...', $value);
         $start = new DateTime($dates[0]);
         $end = new DateTime($dates[1]);
-
         if(count($dates) != 2 && !$start && !$end) 
-            return;
-
+        return;
+        
+        $formatCondition =  $property == 'period' ? 'lower(o.%s)' : 'o.%s';
         $queryBuilder
-            ->andWhere(sprintf('lower(o.%s) BETWEEN :start AND :end', $property ))
+            ->andWhere(sprintf($formatCondition . ' BETWEEN :start AND :end', $property ))
             ->setParameter('start', $start->format(DATE_ATOM))
             ->setParameter('end', $end->format(DATE_ATOM));
 

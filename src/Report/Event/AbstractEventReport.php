@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tlc\ManualBundle\Report\Event;
 
-use Tlc\ManualBundle\Dataset\PdfDataset;
-use Tlc\ManualBundle\Entity\Column;
+use Tlc\ReportBundle\Entity\Column;
 use Tlc\ManualBundle\Entity\Shift;
-use Tlc\ManualBundle\Report\AbstractReport;
 use Tlc\ManualBundle\Repository\EventRepository;
 use DatePeriod;
+use Tlc\ReportBundle\Dataset\PdfDataset;
+use Tlc\ReportBundle\Report\AbstractReport;
 
 abstract class AbstractEventReport extends AbstractReport
 {
