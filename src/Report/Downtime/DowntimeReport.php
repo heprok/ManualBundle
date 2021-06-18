@@ -105,8 +105,8 @@ final class DowntimeReport extends AbstractReport
             $place = $downtime->getPlace();
             $locationName = $place?->getLocation()->getName() ?? '';
             $groupName = $cause?->getGroups()->getName() ?? '';
-            $startTime = $downtime->getDrec();
-            $endTime = $downtime->getFinish();
+            $startTime = $downtime->getStartDate();
+            $endTime = $downtime->getFinishDate();
             $duration  = $downtime->getDurationInterval() ?? 'Продолжается';
 
             if ($buff['day'] != $startTime->format('d') && $key != 0) {

@@ -71,14 +71,26 @@ class Downtime
         return $this;
     }
 
-    public function getFinish(): ?\DateTimeInterface
+    public function getFinishDate(): ?\DateTimeInterface
     {
         return $this->period->end;
     }
 
-    public function setFinish(?\DateTimeInterface $finish): self
+    public function setFinishDate(?\DateTimeInterface $finish): self
     {
         $this->period->end = $finish;
+
+        return $this;
+    }
+
+    public function getStartDate(): ?\DateTimeInterface
+    {
+        return $this->period->start;
+    }
+
+    public function setStartDate(?\DateTimeInterface $start): self
+    {
+        $this->period->start = $start;
 
         return $this;
     }

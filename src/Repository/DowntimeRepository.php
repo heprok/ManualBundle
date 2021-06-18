@@ -4,6 +4,7 @@ namespace Tlc\ManualBundle\Repository;
 
 use Tlc\ReportBundle\Entity\BaseEntity;
 use Tlc\ManualBundle\Entity\Shift;
+use Tlc\ManualBundle\Entity\Downtime;
 use DatePeriod;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -37,7 +38,7 @@ class DowntimeRepository extends ServiceEntityRepository
             ->where('lower(d.period) BETWEEN :start AND :end')
             ->setParameter('start', $period->getStartDate()->format(DATE_ATOM))
             ->setParameter('end', $period->getEndDate()->format(DATE_ATOM))
-            ->orderBy('d.drecTimestampKey', 'ASC');
+            ->orderBy('d.period', 'ASC');
 
             foreach ($sqlWhere as $where) {
                 $query = $where->nameTable . $where->id . ' ' . $where->operator . ' ' . $where->value;
