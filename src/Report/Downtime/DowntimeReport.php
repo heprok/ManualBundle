@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Tlc\ManualBundle\Report\Downtime;
 
-use Tlc\ManualBundle\Dataset\PdfDataset;
-use Tlc\ManualBundle\Dataset\SummaryPdfDataset;
-use Tlc\ManualBundle\Entity\BaseEntity;
-use Tlc\ManualBundle\Entity\Column;
-use Tlc\ManualBundle\Entity\SummaryStat;
+use Tlc\ReportBundle\Dataset\PdfDataset;
+use Tlc\ReportBundle\Dataset\SummaryPdfDataset;
+use Tlc\ReportBundle\Entity\BaseEntity;
+use Tlc\ReportBundle\Entity\Column;
+use Tlc\ReportBundle\Entity\SummaryStat;
 use Tlc\ManualBundle\Entity\Unload;
-use Tlc\ManualBundle\Report\AbstractReport;
+use Tlc\ReportBundle\Report\AbstractReport;
 use Tlc\ManualBundle\Repository\BreakSheduleRepository;
 use Tlc\ManualBundle\Repository\DowntimeRepository;
 use DateInterval;
