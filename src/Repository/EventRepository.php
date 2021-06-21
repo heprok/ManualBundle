@@ -47,7 +47,7 @@ class EventRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('e')
             ->andWhere('e.drecTimestampKey BETWEEN :start AND :end')
             ->setParameter('start', $period->getStartDate()->format(DATE_ATOM))
-            ->setParameter('end', $period->getEndDate()->format(DATE_ATOM))
+            ->setParameter('end', $period->end ? $period->getEndDate()->format(DATE_ATOM) : date(DATE_ATOM))
             ->orderBy('e.drecTimestampKey', 'ASC');
 
         foreach ($sqlWhere as $where) {

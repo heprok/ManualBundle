@@ -2,6 +2,7 @@
 
 namespace Tlc\ManualBundle\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -11,6 +12,7 @@ class ActionOperator
     #[ORM\Id]
     #[ORM\Column(type: "smallint", name: "id")]
     #[Groups(["action_operator:read", "action_operator:write"])]
+    #[ApiProperty(identifier: true)]
     protected $code;
 
     #[ORM\Column(type: "string", length: 128, options: ["comment" => "Название действия"])]

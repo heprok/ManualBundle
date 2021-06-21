@@ -37,7 +37,7 @@ class ShiftRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('s')
             ->where('CAST(((COALESCE(upper(s.period), now()) - lower(s.period)) / 2 + lower(s.period)) as timestamp) BETWEEN :start AND :end')
             ->setParameter('start', $period->getStartDate()->format(DATE_ATOM))
-            ->setParameter('end', $period->getEndDate()->format(DATE_ATOM))
+            ->setParameter('end', $period->end ? $period->getEndDate()->format(DATE_ATOM) : date(DATE_ATOM))
             ->orderBy('s.period', 'ASC');
     }
 
@@ -73,7 +73,7 @@ class ShiftRepository extends ServiceEntityRepository
         $query = $this->getEntityManager()->createNativeQuery($sql, $rsm);
 
         $query->setParameter('start', $period->getStartDate()->format(DATE_ATOM));
-        $query->setParameter('end', $period->getEndDate()->format(DATE_ATOM));
+        $query->setParameter('end', $period->end ? $period->getEndDate()->format(DATE_ATOM) : date(DATE_ATOM));
         $query->setParameter('people_id', $idOperator);
         $durationDowntime = $query->getResult()[0]['inter'];
 

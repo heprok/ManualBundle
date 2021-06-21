@@ -37,7 +37,7 @@ class DowntimeRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('d')
             ->where('lower(d.period) BETWEEN :start AND :end')
             ->setParameter('start', $period->getStartDate()->format(DATE_ATOM))
-            ->setParameter('end', $period->getEndDate()->format(DATE_ATOM))
+            ->setParameter('end', $period->end ? $period->getEndDate()->format(DATE_ATOM) : date(DATE_ATOM))
             ->orderBy('d.period', 'ASC');
 
             foreach ($sqlWhere as $where) {
@@ -78,7 +78,7 @@ class DowntimeRepository extends ServiceEntityRepository
 
         $durationTime = new DateTime('00:00');
         foreach ($downtmies as $downtime) {
-            if ($downtime->getFinish())
+            if ($downtime->getFinishDate())
                 $durationTime->add($downtime->getDurationInterval());
         }
         $durationTime = date_diff(new DateTime('00:00'), $durationTime,  true);
