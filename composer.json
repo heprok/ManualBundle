@@ -13,7 +13,7 @@
     "require": {
         "php": ">=7.4",
         "symfony/orm-pack": "^2.1",
-        "tlc/report-bundle": "^0.1.0"
+        "tlc/report-bundle": "dev-master"
     },
     "config": {
         "sort-packages": true
