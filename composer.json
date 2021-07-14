@@ -4,8 +4,8 @@
     "type": "symfony-bundle",
     "repositories": [
         {
-            "type": "path",
-            "url": "../ReportBundle"
+            "type": "vcs",
+            "url": "git@github.com:technolescom/ReportBundle.git"
         }
     ],
     "description": "TechnoLesCom manual bundle",
