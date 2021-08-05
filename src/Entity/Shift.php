@@ -37,6 +37,12 @@ class Shift
     }
 
     #[Groups(["shift:read"])]
+    public function getStop(): ?string
+    {
+        return $this->period?->end->format(BaseEntity::DATE_FORMAT_DB) ?? date(BaseEntity::DATE_FORMAT_DB);
+    }
+
+    #[Groups(["shift:read"])]
     public function getStartTime(): ?string
     {
         return $this->period->start->format(BaseEntity::TIME_FOR_FRONT);
@@ -48,6 +54,7 @@ class Shift
         return $this->period->end ? $this->period->end->format(BaseEntity::TIME_FOR_FRONT) : 'В работе';
     }
 
+    #[Groups(["shift:read"])]
     public function getStartShift(): ?string
     {
         return $this->period->start->format(BaseEntity::DATETIME_FOR_FRONT);

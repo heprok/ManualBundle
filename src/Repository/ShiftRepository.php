@@ -19,7 +19,7 @@ use Doctrine\Persistence\ManagerRegistry;
 class ShiftRepository extends ServiceEntityRepository
 {
     protected $nameClass;
-    
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, $this->nameClass);
@@ -50,7 +50,6 @@ class ShiftRepository extends ServiceEntityRepository
             ->orderBy('timework')
             ->getQuery()
             ->getResult()[0]['timework'] ?? 0;
-
     }
 
     public function getTimeDowntimeForOperator(DatePeriod $period, int $idOperator, string $formatInterval = '%H:%I:%S'): string
@@ -79,10 +78,10 @@ class ShiftRepository extends ServiceEntityRepository
 
         list($hours, $minutes, $seconds, $milisecond) = sscanf($durationDowntime, '%d:%d:%d.%d');
         $interval = new DateInterval(sprintf('PT%dH%dM%dS', $hours, $minutes, $seconds));
-        
+
         return $interval->format($formatInterval);
     }
-    public function getCountShiftForOperator(DatePeriod $period, int $idOperator):int 
+    public function getCountShiftForOperator(DatePeriod $period, int $idOperator): int
     {
         return $this->getQueryFromPeriod($period)
             ->select('count(1) as count')
@@ -93,7 +92,7 @@ class ShiftRepository extends ServiceEntityRepository
             // ->getOneOrNullResult();
             // ->getSQL();
             ->getResult()[0]['count'] ?? 0;
-            // dd($dd);
+        // dd($dd);
 
     }
 
@@ -120,7 +119,15 @@ class ShiftRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-
+    public function findByPeriodWithPeople(DatePeriod $period, array $idsPeople)
+    {
+        return $this->getQueryFromPeriod($period)
+            ->select('s')
+            ->andWhere('s.people IN (:idsPeople)')
+            ->setParameter(':idsPeople', $idsPeople)
+            ->getQuery()
+            ->getResult();
+    }
     /**
      * @return Shift[] Returns an array of Shift objects
      */
