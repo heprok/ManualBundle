@@ -1,6 +1,6 @@
 {
   "name": "tlc/manual-bundle",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "symfony-bundle",
   "repositories": [
     {
@@ -13,12 +13,11 @@
   "require": {
     "php": ">=7.4",
     "symfony/orm-pack": "^2.1",
-    "tlc/report-bundle": "master"
+    "tlc/report-bundle": "*"
   },
   "config": {
     "sort-packages": true
   },
-  "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
       "Tlc\\ManualBundle\\": "src/"
